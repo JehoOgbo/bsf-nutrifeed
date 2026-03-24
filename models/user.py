@@ -1,14 +1,10 @@
 #!/usr/bin/python3
 """holds user class"""
 import models
-# from models.enum import UserType
+from models.enum import UserType
 from models.base_model import BaseModel, Base
 from sqlalchemy import Column, String, ForeignKey, Enum
 from sqlalchemy.orm import relationship
-import os
-import shutil
-from uuid import uuid4
-
 
 
 class User(BaseModel, Base):

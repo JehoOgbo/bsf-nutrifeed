@@ -10,11 +10,9 @@ import os
 
 class Waste(BaseModel, Base):
     """Representation of the Sender"""
-    __tablename__ = 'waste'
+    __tablename__ = 'wastes'
     source_location = Column(String(128), nullable=False)
     quantity_kg = Column(String(128), nullable=False, unique=True)
     arrival_date = Column(Date)
-    shredded_weight = Column(Float)
-    moisture_content = Column(Float)
     batches = relationship("Batch", backref='waste',
                          cascade='all, delete, delete-orphan')
