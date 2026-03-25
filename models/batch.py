@@ -14,3 +14,7 @@ class Batch(BaseModel, Base):
     source_id = Column(String(60), ForeignKey('wastes.id'), nullable=False)
     shredded_weight = Column(Float)
     moisture_content = Column(Float)
+    monitoring_logs = relationship("Monitoring_log", backref='batch',
+                                   cascade='all, delete, delete-orphan')
+    harvest_logs = relationship("Harvest_log", backref='batch',
+                                cascade='all, delete, delete-orphan')
