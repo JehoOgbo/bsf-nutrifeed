@@ -1,0 +1,51 @@
+Creates a new user account
+---
+tags:
+  - Users
+parameters:
+  - name: body
+    in: body
+    required: true
+    schema:
+      type: object
+      required:
+        - name
+        - email
+        - password
+      properties:
+        name:
+          type: string
+          example: "John Doe"
+        email:
+          type: string
+          format: email
+          example: "farmer@bsfnutrifeed.com"
+        password:
+          type: string
+          format: password
+          example: "securePassword123"
+        user_type:
+          type: string
+          enum: [admin, farmer]
+          default: farmer
+description: >
+  "Registers a new user in the BSF-NutriFeed system.
+  This is the first step for farmers to begin logging production data."
+responses:
+  201:
+    description: User created successfully
+    schema:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        email:
+          type: string
+        user_type:
+          type: string
+  400:
+    description: Invalid input (Missing name, email, or password)
+  409:
+    description: User already exists or database conflict

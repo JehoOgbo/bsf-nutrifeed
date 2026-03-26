@@ -1,0 +1,13 @@
+Retrieves details of a specific harvest event
+---
+tags:
+  - Harvest & Yield Data
+security:
+  - Bearer: []
+parameters:
+  - name: log_id
+    in: path
+    required: true
+responses:
+  200:
+    description: Harvest log retrieved

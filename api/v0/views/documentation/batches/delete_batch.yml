@@ -1,0 +1,13 @@
+Removes a batch record
+---
+tags:
+  - Batch Production
+security:
+  - Bearer: []
+parameters:
+  - name: batch_id
+    in: path
+    required: true
+responses:
+  200:
+    description: Batch deleted

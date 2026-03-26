@@ -1,0 +1,21 @@
+Records new sensor or manual monitoring data
+---
+tags:
+  - Monitoring & Environmental Data
+security:
+  - Bearer: []
+parameters:
+  - name: batch_id
+    in: path
+    required: true
+  - name: body
+    in: body
+    required: true
+    schema:
+      properties:
+        temp: {type: number, example: 29.5, description: "Temperature in Celsius"}
+        humidity: {type: number, example: 70.2, description: "Relative Humidity percentage"}
+        larvae_density: {type: number, example: 5.5, description: "Larvae per sq cm"}
+responses:
+  201:
+    description: Log entry created successfully

@@ -1,0 +1,50 @@
+Updates an existing user's information
+---
+tags:
+  - Users
+security:
+  - Bearer: []
+parameters:
+  - name: user_id
+    in: path
+    type: string
+    required: true
+    description: The unique UUID of the user to update
+  - name: body
+    in: body
+    required: true
+    schema:
+      type: object
+      properties:
+        name:
+          type: string
+          example: "updated_farmer_name"
+        user_type:
+          type: string
+          enum: [admin, farmer]
+          example: "farmer"
+description: >
+  "Updates user details. Fields like 'id', 'email', and 'password' are 
+  ignored to maintain security and data integrity."
+responses:
+  200:
+    description: User updated successfully
+    schema:
+      type: object
+      properties:
+        id:
+          type: string
+        username:
+          type: string
+        email:
+          type: string
+        user_type:
+          type: string
+  400:
+    description: Not a JSON or invalid request body
+  401:
+    description: Missing or invalid JWT token
+  404:
+    description: User not found
+  409:
+    description: Database conflict or save failure

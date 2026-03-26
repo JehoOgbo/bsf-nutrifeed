@@ -1,0 +1,64 @@
+tags:
+  - Batch Production
+security:
+  - Bearer: []
+description: >
+  Creates a production batch by linking a specific waste delivery to 
+  the currently authenticated user (Farmer).
+parameters:
+  - name: source_id
+    in: path
+    type: string
+    required: true
+    description: The UUID of the organic waste source to be used for this batch
+  - name: body
+    in: body
+    required: true
+    schema:
+      type: object
+      required:
+        - name
+      properties:
+        name:
+          type: string
+          example: "Batch-Zaria-001"
+        shredded_weight:
+          type: number
+          example: 45.5
+        moisture_content:
+          type: number
+          example: 65.0
+responses:
+  201:
+    description: Batch created successfully
+    schema:
+      type: object
+      properties:
+        id:
+          type: string
+          example: "dccf8da8-3507-4652-8c13-cbe2cac5780d"
+        name:
+          type: string
+          example: "Batch-Zaria-001"
+        user_id:
+          type: string
+          example: "86694dd3-517f-43e4-aac3-080648031dba"
+        source_id:
+          type: string
+          example: "960014a0-a092-40a7-9b41-8f1b72f0fe51"
+        shredded_weight:
+          type: number
+        moisture_content:
+          type: number
+        created_at:
+          type: string
+        updated_at:
+          type: string
+  400:
+    description: Not a JSON or missing required fields (name)
+  401:
+    description: Missing or invalid Bearer token
+  404:
+    description: Waste source ID not found in the system
+  409:
+    description: Database conflict or save failure

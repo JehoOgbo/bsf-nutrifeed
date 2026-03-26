@@ -1,0 +1,16 @@
+Deletes a waste record
+---
+tags:
+  - Waste Sourcing
+security:
+  - Bearer: []
+parameters:
+  - name: waste_id
+    in: path
+    type: string
+    required: true
+responses:
+  200:
+    description: Record deleted
+  404:
+    description: Record not found

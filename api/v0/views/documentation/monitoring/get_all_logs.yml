@@ -1,0 +1,37 @@
+tags:
+  - Environmental Monitoring
+security:
+  - Bearer: []
+description: >
+  Fetches all historical monitoring data from every batch in the system. 
+  Access is restricted to Admin users.
+responses:
+  200:
+    description: A list of all monitoring log objects
+    schema:
+      type: array
+      items:
+        type: object
+        properties:
+          id:
+            type: string
+            example: "log-uuid-456"
+          batch_id:
+            type: string
+            example: "batch-uuid-123"
+          temperature:
+            type: number
+            example: 28.5
+          humidity:
+            type: number
+            example: 70.0
+          larvae_density:
+            type: number
+            example: 1.2
+          timestamp:
+            type: string
+            example: "2026-03-26T17:30:00Z"
+  401:
+    description: Unauthorized - Missing or invalid Bearer token
+  409:
+    description: Insufficient permissions - User is not an admin

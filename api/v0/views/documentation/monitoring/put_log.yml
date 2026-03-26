@@ -1,0 +1,26 @@
+Updates sensor data for a specific log entry
+---
+tags:
+  - Monitoring & Environmental Data
+security:
+  - Bearer: []
+parameters:
+  - name: log_id
+    in: path
+    type: string
+    required: true
+  - name: body
+    in: body
+    required: true
+    schema:
+      properties:
+        temp: {type: number, example: 30.1}
+        humidity: {type: number, example: 68.5}
+        larvae_density: {type: number, example: 6.2}
+responses:
+  200:
+    description: Log updated successfully
+  404:
+    description: Log not found
+  409:
+    description: Database conflict during update

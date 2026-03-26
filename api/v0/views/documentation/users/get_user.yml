@@ -1,0 +1,41 @@
+Retrieves a specific user by ID
+---
+tags:
+  - Users
+security:
+  - Bearer: []
+parameters:
+  - name: user_id
+    in: path
+    type: string
+    required: true
+    description: The unique UUID of the user to retrieve
+description: >
+  "Fetches a single user object from the database using its unique identifier.
+  Requires a valid JWT token for authentication."
+responses:
+  200:
+    description: User object found and returned
+    schema:
+      type: object
+      properties:
+        id:
+          type: string
+          example: "550e8400-e29b-41d4-a716-446655440000"
+        name:
+          type: string
+          example: "John Doe"
+        email:
+          type: string
+          example: "farmer@bsfnutrifeed.com"
+        user_type:
+          type: string
+          enum: [admin, farmer]
+          example: "farmer"
+        created_at:
+          type: string
+          format: date-time
+  401:
+    description: Missing or invalid JWT token
+  404:
+    description: User not found

@@ -1,0 +1,16 @@
+Retrieves a specific waste record by ID
+---
+tags:
+  - Waste Sourcing
+security:
+  - Bearer: []
+parameters:
+  - name: waste_id
+    in: path
+    type: string
+    required: true
+responses:
+  200:
+    description: Waste object found
+  404:
+    description: Waste record not found

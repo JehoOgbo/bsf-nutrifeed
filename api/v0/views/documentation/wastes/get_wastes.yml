@@ -1,0 +1,25 @@
+Retrieves the list of all waste records
+---
+tags:
+  - Waste Sourcing
+security:
+  - Bearer: []
+description: >
+  Returns a list of all organic waste sources recorded in the system.
+  Used to track input for BSF batch production.
+responses:
+  200:
+    description: >
+      "Fetches every waste sourcing log recorded in the system.
+      This endpoint is restricted to users with 'admin' privileges.
+      It provides a bird's-eye view of all waste from all sources."
+    schema:
+      type: array
+      items:
+        properties:
+          id: {type: string}
+          source_location: {type: string}
+          quantity_kg: {type: string}
+          arrival_date: {type: string}
+  401:
+    description: Invalid or missing Bearer token

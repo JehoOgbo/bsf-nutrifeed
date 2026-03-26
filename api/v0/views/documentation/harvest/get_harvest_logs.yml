@@ -1,0 +1,13 @@
+Retrieves all harvest records for a specific batch
+---
+tags:
+  - Harvest & Yield Data
+security:
+  - Bearer: []
+parameters:
+  - name: batch_id
+    in: path
+    required: true
+responses:
+  200:
+    description: "List of harvest logs (larvae weight, size, frass grade)"

@@ -1,0 +1,19 @@
+Updates specific harvest metrics
+---
+tags:
+  - Harvest & Yield Data
+security:
+  - Bearer: []
+parameters:
+  - name: log_id
+    in: path
+    required: true
+  - name: body
+    in: body
+    schema:
+      properties:
+        residue_frass_grade: {type: string}
+        larvae_weight: {type: number}
+responses:
+  200:
+    description: Record updated

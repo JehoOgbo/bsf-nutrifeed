@@ -1,0 +1,35 @@
+tags:
+  - Harvest & Yield Data
+security:
+  - Bearer: []
+parameters:
+  - name: batch_id
+    in: path
+    type: string
+    required: true
+  - name: body
+    in: body
+    required: true
+    schema:
+      type: object
+      required:
+        - larvae_weight
+        - residue_frass_grade
+      properties:
+        larvae_weight:
+          type: number
+          example: 12.5
+        avg_larvae_size:
+          type: number
+          example: 2.1
+        residue_weight:
+          type: number
+          example: 35.0
+        residue_frass_grade:
+          type: string
+          example: "Grade A"
+responses:
+  201:
+    description: Harvest record created
+  400:
+    description: Invalid input

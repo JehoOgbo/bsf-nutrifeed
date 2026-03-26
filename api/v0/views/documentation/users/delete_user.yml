@@ -1,0 +1,25 @@
+Deletes a specific user
+---
+tags:
+  - Users
+security:
+  - Bearer: []
+parameters:
+  - name: user_id
+    in: path
+    type: string
+    required: true
+    description: The unique UUID of the user to be deleted
+description: >
+  "Permanently removes a user record from the BSF-NutriFeed database.
+  This action is restricted and requires a valid JWT token."
+responses:
+  200:
+    description: User deleted successfully
+    schema:
+      type: object
+      example: {}
+  401:
+    description: Missing or invalid JWT token
+  404:
+    description: User ID not found in the system

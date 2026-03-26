@@ -1,0 +1,26 @@
+Retrieves all logs for a specific production batch
+---
+tags:
+  - Monitoring & Environmental Data
+security:
+  - Bearer: []
+parameters:
+  - name: batch_id
+    in: path
+    type: string
+    required: true
+    description: UUID of the batch to filter logs by
+responses:
+  200:
+    description: A list of all monitoring logs for the batch
+    schema:
+      type: array
+      items:
+        properties:
+          id: {type: string}
+          temp: {type: number}
+          humidity: {type: number}
+          larvae_density: {type: number}
+          timestamp: {type: string, format: date-time}
+  404:
+    description: Batch not found

@@ -1,0 +1,17 @@
+Retrieves a single monitoring log entry
+---
+tags:
+  - Monitoring & Environmental Data
+security:
+  - Bearer: []
+parameters:
+  - name: log_id
+    in: path
+    type: string
+    required: true
+    description: UUID of the specific log to retrieve
+responses:
+  200:
+    description: Log entry details retrieved
+  404:
+    description: Log ID not found

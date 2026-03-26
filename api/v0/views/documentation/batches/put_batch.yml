@@ -1,0 +1,19 @@
+Updates batch processing metrics
+---
+tags:
+  - Batch Production
+security:
+  - Bearer: []
+parameters:
+  - name: batch_id
+    in: path
+    required: true
+  - name: body
+    in: body
+    schema:
+      properties:
+        shredded_weight: {type: number}
+        moisture_content: {type: number}
+responses:
+  200:
+    description: Metrics updated

@@ -1,0 +1,34 @@
+Logs in a user and returns a JWT
+---
+tags:
+  - Authentication
+parameters:
+  - name: body
+    in: body
+    required: true
+    schema:
+      type: object
+      required:
+        - email
+        - password
+      properties:
+        email:
+          type: string
+          example: "farmer@bsfnutrifeed.com"
+        password:
+          type: string
+          example: "securePassword123"
+description: >
+  Authenticates a user and provides a Bearer token. 
+  This token must be included in the 'Authorization' header for protected routes.
+responses:
+  200:
+    description: Login successful
+    schema:
+      type: object
+      properties:
+        access_token:
+          type: string
+          example: "eyJhbGciOiJIUzI1NiIsInR5..."
+  401:
+    description: Invalid email or password

@@ -1,0 +1,25 @@
+Deletes a specific harvest record
+---
+tags:
+  - Harvest & Yield Data
+security:
+  - Bearer: []
+parameters:
+  - name: log_id
+    in: path
+    type: string
+    required: true
+    description: The UUID of the harvest log to be removed
+description: >
+  Permanently deletes a harvest entry from the database. 
+  This action cannot be undone. Requires a valid JWT.
+responses:
+  200:
+    description: Harvest record deleted successfully
+    schema:
+      type: object
+      example: {}
+  401:
+    description: Missing or invalid Bearer token
+  404:
+    description: Harvest log ID not found

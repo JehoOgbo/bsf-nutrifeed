@@ -1,0 +1,22 @@
+Updates an existing waste record
+---
+tags:
+  - Waste Sourcing
+security:
+  - Bearer: []
+parameters:
+  - name: waste_id
+    in: path
+    type: string
+    required: true
+  - name: body
+    in: body
+    schema:
+      properties:
+        source_location: {type: string}
+        quantity_kg: {type: number}
+responses:
+  200:
+    description: Waste record updated
+  404:
+    description: Record not found

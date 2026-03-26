@@ -1,0 +1,28 @@
+---
+tags:
+  - Batch Production
+
+security:
+  - Bearer: []
+
+description: >
+  Retrieves all production batches.
+  Fetches every batch record in the system.
+  This endpoint is restricted to users with 'admin' privileges.
+
+responses:
+  200:
+    description: A list of all batch records
+    schema:
+      type: array
+      items:
+        type: object
+
+  401:
+    description: Missing or invalid Bearer token
+
+  404:
+    description: User not found
+
+  409:
+    description: Insufficient permissions (admin only)

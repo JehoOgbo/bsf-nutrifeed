@@ -1,0 +1,13 @@
+Removes a monitoring log entry
+---
+tags:
+  - Monitoring & Environmental Data
+security:
+  - Bearer: []
+parameters:
+  - name: log_id
+    in: path
+    required: true
+responses:
+  200:
+    description: Log deleted

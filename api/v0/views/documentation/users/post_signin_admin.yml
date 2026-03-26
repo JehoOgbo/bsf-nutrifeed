@@ -1,0 +1,33 @@
+Logs in an administrator
+---
+tags:
+  - Authentication
+parameters:
+  - name: body
+    in: body
+    required: true
+    schema:
+      type: object
+      required:
+        - email
+        - password
+      properties:
+        email:
+          type: string
+          example: "admin@bsfnutrifeed.com"
+        password:
+          type: string
+          example: "adminSecret2026"
+description: >
+  "Authenticates an administrator.
+  Checks both credentials and the 'user_type' status before issuing a token."
+responses:
+  200:
+    description: Admin login successful
+    schema:
+      type: object
+      properties:
+        access_token:
+          type: string
+  401:
+    description: Invalid credentials or insufficient permissions (User is not an admin)

@@ -1,0 +1,14 @@
+Retrieves all monitoring logs for a specific batch
+---
+tags:
+  - Monitoring & Environmental Data
+security:
+  - Bearer: []
+parameters:
+  - name: batch_id
+    in: path
+    required: true
+    description: UUID of the batch to view logs for
+responses:
+  200:
+    description: A list of temperature, humidity, and density logs

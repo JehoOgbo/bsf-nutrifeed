@@ -1,0 +1,46 @@
+Retrieves a specific production batch
+---
+tags:
+  - Batch Production
+security:
+  - Bearer: []
+parameters:
+  - name: batch_id
+    in: path
+    type: string
+    required: true
+    description: The unique UUID of the batch to retrieve
+description: >
+  "Fetches detailed information about a specific BSF production batch,
+  including its source waste reference and processing metrics."
+responses:
+  200:
+    description: Batch details retrieved successfully
+    schema:
+      type: object
+      properties:
+        id:
+          type: string
+          example: "7b2a9101-f3b4-4e21-bc7a-99bbcc881122"
+        name:
+          type: string
+          example: "Batch-Alpha-March"
+        user_id:
+          type: string
+          example: "550e8400-e29b-41d4-a716-446655440000"
+        source_id:
+          type: string
+          example: "a1b2c3d4-e5f6-7g8h-9i0j-k1l2m3n4o5p6"
+        shredded_weight:
+          type: number
+          example: 45.5
+        moisture_content:
+          type: number
+          example: 65.0
+        created_at:
+          type: string
+          format: date-time
+  401:
+    description: Missing or invalid Bearer token
+  404:
+    description: Batch ID not found

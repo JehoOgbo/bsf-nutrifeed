@@ -1,0 +1,24 @@
+Creates a new waste entry
+---
+tags:
+  - Waste Sourcing
+security:
+  - Bearer: []
+parameters:
+  - name: body
+    in: body
+    required: true
+    schema:
+      id: Waste
+      required:
+        - source_location
+        - quantity_kg
+      properties:
+        source_location: {type: string, example: "Kaduna Market"}
+        quantity_kg: {type: number, example: 250}
+        arrival_date: {type: string, format: date, example: "2026-03-25"}
+responses:
+  201:
+    description: Waste record created successfully
+  409:
+    description: Conflict (Check if quantity_kg unique constraint was hit)

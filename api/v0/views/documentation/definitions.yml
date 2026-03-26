@@ -1,0 +1,43 @@
+User:
+  type: object
+  properties:
+    id: {type: string}
+    created_at: {type: datetime}
+    updated_at: {type: datetime}
+    name: {type: string}
+    email: {type: string}
+Waste:
+  type: object
+  properties:
+    id: {type: string}
+    created_at: {type: datetime}
+    updated_at: {type: datetime}
+    source_location: {type: string}
+    quantity_kg: {type: number}
+Batch:
+  type: object
+  properties:
+    id: {type: string}
+    created_at: {type: datetime}
+    updated_at: {type: datetime}
+    name: {type: string}
+    user_id: {type: string}
+    source_id: {type: string}
+MonitoringLog:
+  type: object
+  properties:
+    id: {type: string}
+    created_at: {type: datetime}
+    updated_at: {type: datetime}
+    temp: {type: number}
+    larvae_density: {type: number}
+    humidity: {type: number}
+HarvestLog:
+  type: object
+  properties:
+    id: {type: string}
+    created_at: {type: datetime}
+    updated_at: {type: datetime}
+    larvae_weight: {type: number}
+    residue_frass_grade: {type: string}
+    batch_id: {type: string}

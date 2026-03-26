@@ -1,0 +1,17 @@
+Retrieves all batches linked to a specific waste source
+---
+tags:
+  - Batch Production
+security:
+  - Bearer: []
+parameters:
+  - name: waste_id
+    in: path
+    type: string
+    required: true
+    description: The UUID of the waste record
+responses:
+  200:
+    description: A list of batches that utilized this specific waste input
+  404:
+    description: Waste source not found
