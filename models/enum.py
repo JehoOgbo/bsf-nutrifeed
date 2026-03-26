@@ -2,8 +2,9 @@
 """
 Declare enums used in database
 """
+import enum
 
-class UserType(enum.Enum):
+class UserType(str, enum.Enum):
     """Declare an enum class for the user types"""
-    REGULAR = 'regular'
+    FARMER = 'farmer'
     ADMIN = 'admin'

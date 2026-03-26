@@ -7,7 +7,7 @@ from datetime import datetime
 import models
 from sqlalchemy import Column, String, DateTime
 from sqlalchemy.ext.declarative import declarative_base
-from models.enum import QueryType
+from models.enum import UserType
 import uuid
 
 time = "%Y-%m-%dT%H:%M:%s.%f"
@@ -69,8 +69,8 @@ class BaseModel:
         # Finds the first key starting with 'scrypt', deletes it, and returns None if not found
         new_dict.pop(next((k for k in new_dict if k.startswith('scrypt:')), None), None)
         if "user_type" in new_dict:
-           if new_dict["user_type"] == UserType.REGULAR:
-               new_dict["user_type"] = "regular"
+           if new_dict["user_type"] == UserType.FARMER:
+               new_dict["user_type"] = "farmer"
            else:
                new_dict["user_type"] = "admin"
         #if "item_type" in new_dict:

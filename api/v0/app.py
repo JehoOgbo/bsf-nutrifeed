@@ -12,7 +12,8 @@ from uuid import uuid4
 from datetime import timedelta
 import os
 from flask import request, redirect, url_for
-from api.v0.views.documentation.definitions import schema_definitions # Import here
+import yaml
+# from api.v0.views.documentation.definitions import schema_definitions # Import here
 
 app = Flask(__name__)
 app.config['JSONIFY_PRETTYPRINT_REGULAR'] = True
@@ -68,12 +69,14 @@ def conflict(error):
     """
     return make_response(jsonify({'error': "Duplicate Entry. Name already exists"}), 409)
 
+with open('api/v0/views/documentation/definitions.yml', 'r') as f:
+    external_definitions = yaml.safe_load(f)
 # Security configuration for Swagger
 template = {
     "swagger": "2.0",
     "info": {
-        "title": "My API",
-        "description": "API with JWT Authentication",
+        "title": "BSF-NutriFeed API",
+        "description": "API for Black Soldier Fly Larvae Production Tracking",
         "version": "1.0.1"
     },
     "securityDefinitions": {
@@ -83,16 +86,19 @@ template = {
             "in": "header",
             "description": "JWT Authorization header using the Bearer scheme. Example: \"Authorization: Bearer {token}\""
         }
-    },
-    "definitions": schema_definitions
+    }
 }
 
-#app.config['SWAGGER'] = {
-#    'title': 'Campus Logistics RESTful API',
-#    'uiversion': 3
+template['definitions'] = external_definitions
+    #"definitions": schema_definitions
 #}
 
-Swagger(app, template=template)
+app.config['SWAGGER'] = {
+    'title': 'BSF-NutriFeed API',
+    'uiversion': 3
+}
+
+swagger = Swagger(app, template=template)
 
 if __name__ == "__main__":
     """ Main Function """

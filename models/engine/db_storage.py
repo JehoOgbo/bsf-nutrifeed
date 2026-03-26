@@ -28,24 +28,20 @@ class DBStorage:
 
     def __init__(self):
         # Default to 'hbnb_dev.db' if no name is provided in env
-        #DB_NAME = getenv('HBNB_SQLITE_DB', 'hbnb_dev.db')
+        DB_NAME = getenv('HBNB_SQLITE_DB', 'hbnb_dev.db')
         #HBNB_ENV = getenv('HBNB_ENV')
-        DB_STRING = getenv('DB_URL')
-        
-        # SQLite connection string: sqlite:///path/to/db
-        #self.__engine = create_engine('sqlite:///{}'.format(DB_NAME),
-        #                              pool_pre_ping=True)
-
+        #DB_STRING = getenv('DB_URL') # SQLite connection string: sqlite:///path/to/db
+        self.__engine = create_engine('sqlite:///{}'.format(DB_NAME), pool_pre_ping=True)
         # Use connect_args to force SSL and avoid the 'argument 18' string/bool error
-        self.__engine = create_engine(
-            DB_STRING,
-            connect_args={
-                "ssl_verify_cert": True,
-                "ssl_verify_identity": True,
-                "ssl_ca": "/etc/ssl/certs/ca-certificates.crt"
-            },
-            pool_pre_ping=True
-        )
+        #self.__engine = create_engine(
+        #                              pool_pre_ping=True)
+        #    connect_args={
+        #        "ssl_verify_cert": True,
+        #        "ssl_verify_identity": True,
+        #        "ssl_ca": "/etc/ssl/certs/ca-certificates.crt"
+        #    },
+        #    pool_pre_ping=True
+        #)
 
         #if HBNB_ENV == 'test':
         #    Base.metadata.drop_all(self.__engine)

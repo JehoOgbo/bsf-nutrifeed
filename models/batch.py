@@ -2,7 +2,7 @@
 """ holds class Batch"""
 import models
 from models.base_model import BaseModel, Base
-from sqlalchemy import Column, String, ForeignKey, Date
+from sqlalchemy import Column, String, ForeignKey, Date, Float
 from sqlalchemy.orm import relationship
 
 

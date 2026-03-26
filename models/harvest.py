@@ -2,9 +2,9 @@
 """ holds class Batch"""
 import models
 from models.base_model import BaseModel, Base
-from sqlalchemy import Column, String, ForeignKey, Date, DateTime
+from sqlalchemy import Column, String, ForeignKey, Date, DateTime, Float
 from sqlalchemy.orm import relationship
-
+from datetime import datetime
 
 class Harvest_log(BaseModel, Base):
     """Representation of harvest model for monitoring
@@ -14,5 +14,5 @@ class Harvest_log(BaseModel, Base):
     avg_larvae_size = Column(Float)
     residue_weight = Column(Float)
     residue_frass_grade = Column(String)
-    timestamp = Column(DateTime, default=datetime.utcnow().time)
+    timestamp = Column(DateTime, default=datetime.utcnow)
     batch_id = Column(String(60), ForeignKey('batches.id'), nullable=False)

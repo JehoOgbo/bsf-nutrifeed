@@ -13,7 +13,7 @@ class User(BaseModel, Base):
     name = Column(String(128), nullable=False)
     email = Column(String(128), nullable=False, unique=True)
     password = Column(String(1024), nullable=False)
-    user_type = Column(Enum(UserType), default=UserType.REGULAR,
+    user_type = Column(Enum(UserType), default=UserType.FARMER,
                        nullable=False)
     batches = relationship("Batch", backref='user',
                          cascade='all, delete, delete-orphan')
