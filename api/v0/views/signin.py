@@ -60,7 +60,7 @@ def login_admin():
 
     if not user or not check_password_hash(user.password, password):
         return jsonify({"message": "Invalid email or password"}), 401
-    if (user.user_type is 'admin'):
+    if (user.user_type == 'admin'):
         return jsonify({"message": "Invalid email or password"}), 401
 
     # Create the access token for the logged-in user
