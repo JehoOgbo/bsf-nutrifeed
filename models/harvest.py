@@ -13,6 +13,6 @@ class Harvest_log(BaseModel, Base):
     larvae_weight = Column(Float)
     avg_larvae_size = Column(Float)
     residue_weight = Column(Float)
-    residue_frass_grade = Column(String)
+    residue_frass_grade = Column(String(60))
     timestamp = Column(DateTime, default=datetime.utcnow)
     batch_id = Column(String(60), ForeignKey('batches.id'), nullable=False)

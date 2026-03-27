@@ -1,6 +1,6 @@
 #!/usr/bin/python3
 """ Flask Application """
-from models import storage
+from models import storage, init_db
 from api.v0.views import app_views
 from os import environ
 from flask import Flask, render_template, make_response, jsonify
@@ -13,9 +13,14 @@ from datetime import timedelta
 import os
 from flask import request, redirect, url_for
 import yaml
+from dotenv import load_dotenv
 # from api.v0.views.documentation.definitions import schema_definitions # Import here
 
+load_dotenv()
 app = Flask(__name__)
+
+init_db()
+
 app.config['JSONIFY_PRETTYPRINT_REGULAR'] = True
 app.register_blueprint(app_views)
 cors = CORS(app, resources={r"/api/v0/*": {"origins": "*"}})

@@ -12,9 +12,10 @@ from models.harvest import Harvest_log
 from models.monitoring import Monitoring_log
 from sqlalchemy import create_engine
 from sqlalchemy.orm import scoped_session, sessionmaker
-from sqlalchemy.exc import IntegrityError
+from sqlalchemy.exc import IntegrityError, OperationalError
 from os import getenv
 from dotenv import load_dotenv
+import time
 
 classes = {"Batch": Batch, "Waste": Waste, "Harvest_log": Harvest_log, "User": User, "Monitoring_log": Monitoring_log}
 
@@ -26,24 +27,25 @@ class DBStorage:
     __session = None
 
     def __init__(self):
-        # Default to 'hbnb_dev.db' if no name is provided in env
-        DB_NAME = getenv('HBNB_SQLITE_DB', 'hbnb_dev.db')
-        #HBNB_ENV = getenv('HBNB_ENV')
-        #DB_STRING = getenv('DB_URL') # SQLite connection string: sqlite:///path/to/db
-        self.__engine = create_engine('sqlite:///{}'.format(DB_NAME), pool_pre_ping=True)
-        # Use connect_args to force SSL and avoid the 'argument 18' string/bool error
-        #self.__engine = create_engine(
-        #                              pool_pre_ping=True)
-        #    connect_args={
-        #        "ssl_verify_cert": True,
-        #        "ssl_verify_identity": True,
-        #        "ssl_ca": "/etc/ssl/certs/ca-certificates.crt"
-        #    },
-        #    pool_pre_ping=True
-        #)
+        # 1. Get the Database Type (mysql or sqlite)
+        DB_TYPE = getenv('DB_TYPE', 'sqlite')
+        
+        if DB_TYPE == 'mysql':
+            # 2. Pull variables passed from docker-compose
+            USER = getenv('MYSQL_USER')
+            PWD = getenv('MYSQL_PASSWORD')
+            HOST = getenv('MYSQL_HOST', 'db')
+            DB = getenv('MYSQL_DB') # This maps to MYSQL_DATABASE in .env
+            
+            # 3. Defensive check to prevent AssertionErrors
+            if not all([USER, PWD, DB]):
+                raise ValueError("Missing database environment variables!")
 
-        #if HBNB_ENV == 'test':
-        #    Base.metadata.drop_all(self.__engine)
+            # 4. Construct the Connection URL
+            url = 'mysql+pymysql://{}:{}@{}/{}'.format(USER, PWD, HOST, DB)
+            
+            # 5. Initialize the Engine
+            self.__engine = create_engine(url, pool_pre_ping=True)
 
     def all(self, cls=None):
         """query on the current database session"""
@@ -75,11 +77,31 @@ class DBStorage:
             self.__session.delete(obj)
 
     def reload(self):
-        """reloads data from the database"""
-        Base.metadata.create_all(self.__engine)
-        sess_factory = sessionmaker(bind=self.__engine, expire_on_commit=False)
-        Session = scoped_session(sess_factory)
-        self.__session = Session
+        """Creates all tables in the database with a connection retry loop"""
+        retries = 10  # Increased to 10 to give MySQL plenty of time to warm up
+        connected = False
+
+        while retries > 0:
+            try:
+                # Try to connect and create tables in one go
+                Base.metadata.create_all(self.__engine)
+                print("Successfully connected and synced database tables!")
+                connected = True
+                break
+            except OperationalError as e:
+                retries -= 1
+                if retries == 0:
+                    print("Final attempt failed. Could not connect to the database.")
+                    raise e  # Crash gracefully after all attempts fail
+                
+                print(f"Database not ready. Retrying in 5s... ({retries} attempts left)")
+                time.sleep(5)
+
+        if connected:
+            # Only initialize the session if the connection succeeded
+            sess_factory = sessionmaker(bind=self.__engine, expire_on_commit=False)
+            Session = scoped_session(sess_factory)
+            self.__session = Session
 
     def close(self):
         """call remove() method on the private session attribute"""
