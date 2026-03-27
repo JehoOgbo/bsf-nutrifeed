@@ -43,18 +43,17 @@ Before starting, ensure you have the following installed:
     ```
 
 2.  **Configure Environment Variables**
-    Create a `.env` file in the root directory and add your credentials (refer to `.env.example`):
-    ```bash
-    MYSQL_ROOT_PASSWORD=your_root_password
-    MYSQL_DATABASE=hbnb_dev_db
-    MYSQL_USER=hbnb_dev
-    MYSQL_PASSWORD=hbnb_dev_pwd
-    ```
+    Create a `.env` file in the root directory and add your credentials (refer to [.env.example](./.env.example)):
 
 3.  **Build and Launch**
     Open your terminal (Command Prompt/PowerShell on Windows, or Terminal on Mac) and run:
     ```bash
     docker compose up --build
+    ```
+
+    If you've done this before, use:
+    ```bash
+    docker compose up
     ```
 
 4.  **Access the API**
@@ -147,6 +146,5 @@ Once the server is running, you can access the interactive Swagger documentation
 ├── README.md                # Project Documentation
 ```
 
-### Author
-## 👥 Authors
+### 👥 Authors
 This project is maintained by **Urom Jehoshaphat Ogbonnia**. See the full list of contributors in [AUTHORS.md](./AUTHORS.md).
