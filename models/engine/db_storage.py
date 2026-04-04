@@ -45,7 +45,10 @@ class DBStorage:
             url = 'mysql+pymysql://{}:{}@{}/{}'.format(USER, PWD, HOST, DB)
             
             # 5. Initialize the Engine
-            self.__engine = create_engine(url, pool_pre_ping=True)
+            self.__engine = create_engine(url, pool_pre_ping=True, # check if connection is alive
+                                          pool_size=10, # maintain 10 connections
+                                          max_overflow=20, # Allow 20 extra if needed
+                                          pool_recycle=3600 # refresh connections every hour)
 
     def all(self, cls=None, limit=None, offset=None):
     """Enhanced query with pagination support"""
