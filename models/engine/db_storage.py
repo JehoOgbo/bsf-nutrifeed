@@ -47,16 +47,32 @@ class DBStorage:
             # 5. Initialize the Engine
             self.__engine = create_engine(url, pool_pre_ping=True)
 
-    def all(self, cls=None):
-        """query on the current database session"""
-        new_dict = {}
-        for clss_name, clss_obj in classes.items():
-            if cls is None or cls is clss_obj or cls == clss_name:
-                objs = self.__session.query(clss_obj).all()
-                for obj in objs:
-                    key = "{}.{}".format(obj.__class__.__name__, obj.id)
-                    new_dict[key] = obj
-        return new_dict
+    def all(self, cls=None, limit=None, offset=None):
+    """Enhanced query with pagination support"""
+    new_dict = {}
+    if cls:
+        # Determine the class
+        target_cls = classes[cls] if isinstance(cls, str) else cls
+        
+        # Optimize query: Use limit/offset for pagination
+        query = self.__session.query(target_cls)
+        if limit:
+            query = query.limit(limit)
+        if offset:
+            query = query.offset(offset)
+            
+        objs = query.all()
+        for obj in objs:
+            key = "{}.{}".format(obj.__class__.__name__, obj.id)
+            new_dict[key] = obj
+    else:
+        # Warning: This is still heavy, but we can't paginate across multiple tables easily
+        for clss_obj in classes.values():
+            objs = self.__session.query(clss_obj).all()
+            for obj in objs:
+                key = "{}.{}".format(obj.__class__.__name__, obj.id)
+                new_dict[key] = obj
+    return new_dict
 
     def new(self, obj):
         """add the object to the current database session"""
