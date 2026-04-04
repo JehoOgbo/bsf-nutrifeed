@@ -1,3 +1,4 @@
+async-timeout==5.0.1
 attrs==26.1.0
 blinker==1.9.0
 cffi==2.0.0
@@ -25,6 +26,7 @@ PyJWT==2.12.1
 PyMySQL==1.1.2
 python-dotenv==1.2.2
 PyYAML==6.0.3
+redis==7.4.0
 referencing==0.37.0
 rpds-py==0.30.0
 six==1.17.0

@@ -18,6 +18,15 @@ services:
       timeout: 5s
       retries: 10
 
+  redis_cache:
+    image: redis:7-alpine
+    container_name: bsf_redis
+    restart: always
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis_data:/data
+
   web:
     build: .
     container_name: flask_backend
@@ -36,3 +45,4 @@ services:
 
 volumes:
   db_data:
+  redis_data:
