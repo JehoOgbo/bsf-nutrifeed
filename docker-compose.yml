@@ -40,6 +40,8 @@ services:
       - MYSQL_HOST=db
       - MYSQL_DB=${MYSQL_DATABASE} 
       - BSF_PORT=${BSF_PORT}
+      - JWT_SECRET_KEY=${JWT_SECRET_KEY}
+      - REDIS_HOST=${REDIS_HOST}
     ports:
       - "${BSF_PORT}:${BSF_PORT}"
 

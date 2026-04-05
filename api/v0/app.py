@@ -32,7 +32,7 @@ cors = CORS(app, resources={r"/api/v0/*": {"origins": "*"}})
 
 # -- JWT Configuration --
 # You should generate a complex, random key for production
-app.config["JWT_SECRET_KEY"] = str(uuid4())
+app.config["JWT_SECRET_KEY"] = os.getenv('JWT_SECRET_KEY')
 # Set the token expiration time
 app.config["JWT_ACCESS_TOKEN_EXPIRES"] = timedelta(days=30)
 jwt = JWTManager(app)

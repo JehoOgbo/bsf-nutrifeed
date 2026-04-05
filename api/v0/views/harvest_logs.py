@@ -3,9 +3,10 @@ from flask import jsonify, abort, request, make_response
 from models import storage
 from models.harvest import Harvest_log
 from models.batch import Batch
+from models.user import User
 from api.v0.views import app_views
 from flasgger.utils import swag_from
-from flask_jwt_extended import jwt_required
+from flask_jwt_extended import jwt_required, get_jwt_identity
 
 
 @app_views.route('/harvests', methods=['GET'], strict_slashes=False)

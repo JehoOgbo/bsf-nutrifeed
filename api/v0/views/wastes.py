@@ -1,10 +1,11 @@
 #!/usr/bin/python3
 from flask import jsonify, abort, request, make_response
 from models import storage
+from models.user import User
 from models.waste import Waste
 from api.v0.views import app_views
 from flasgger.utils import swag_from
-from flask_jwt_extended import jwt_required
+from flask_jwt_extended import jwt_required, get_jwt_identity
 from datetime import datetime
 
 @app_views.route('/wastes', methods=['GET'], strict_slashes=False)
